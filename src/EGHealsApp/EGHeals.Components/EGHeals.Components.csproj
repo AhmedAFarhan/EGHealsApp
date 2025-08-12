@@ -15,4 +15,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Pages\" />
+    <Folder Include="UI\" />
+    <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>
