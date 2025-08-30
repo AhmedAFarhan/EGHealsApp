@@ -43,7 +43,7 @@
                 ArgumentOutOfRangeException.ThrowIfLessThan(description.Length, 3);
             }
 
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(cost);           
+            ArgumentOutOfRangeException.ThrowIfNegative(cost);           
         }
     }
 }

@@ -50,6 +50,8 @@
 
         public void AddExaminationCost(ExaminationId examinationId, decimal cost)
         {
+            ArgumentOutOfRangeException.ThrowIfNegative(cost);
+
             var examCost = new RadiologistExaminationCost(Id, examinationId, cost);
 
             _examinationCosts.Add(examCost);

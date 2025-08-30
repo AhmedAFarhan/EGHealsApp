@@ -1,0 +1,4 @@
+﻿global using EGHeals.Application.Extensions.Validators;
+global using BuildingBlocks.CQRS;
+global using FluentValidation; 
+global using BuildingBlocks.DataAccessAbstraction.UnitOfWork;

@@ -13,9 +13,9 @@
         public StuffTitle StuffTitle { get; private set; } = StuffTitle.UNKNOWN;
         public StuffSalaryType StuffSalaryType { get; private set; } = StuffSalaryType.DAILY;
         public decimal Salary { get; private set; }
-        public SystemUserId UserMemberId { get; private set; } = default!;
+        public SystemUserId? UserMemberId { get; private set; } = default!;
 
-        public static TeamWorkMember Create(string fullName, string? nationalId, string mobile, StuffTitle stuffTitle, StuffSalaryType stuffSalaryType, decimal salary, SystemUserId userMemberId)
+        public static TeamWorkMember Create(string fullName, string? nationalId, string mobile, StuffTitle stuffTitle, StuffSalaryType stuffSalaryType, decimal salary, SystemUserId? userMemberId)
         {
             Validation(fullName, nationalId, mobile, stuffTitle, stuffSalaryType, salary);
 
@@ -33,7 +33,7 @@
 
             return teamWorkMember;
         }
-        public void Update(string fullName, string? nationalId, string mobile, StuffTitle stuffTitle, StuffSalaryType stuffSalaryType, decimal salary, SystemUserId userMemberId)
+        public void Update(string fullName, string? nationalId, string mobile, StuffTitle stuffTitle, StuffSalaryType stuffSalaryType, decimal salary, SystemUserId? userMemberId)
         {
             Validation(fullName, nationalId, mobile, stuffTitle, stuffSalaryType, salary);
 
@@ -117,7 +117,7 @@
                 throw new DomainException("stuffSalaryType value is out of range");
             }
 
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(salary);
+            ArgumentOutOfRangeException.ThrowIfNegative(salary);
         }
     }
 }   

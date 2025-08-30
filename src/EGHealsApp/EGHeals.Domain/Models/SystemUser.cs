@@ -6,11 +6,13 @@
         public IReadOnlyList<UserRole> UserRoles => _userRoles.AsReadOnly();
 
         public string Username { get; private set; } = default!;
-        public string Email { get; private set; } = default!;
-        public string Mobile { get; private set; } = default!;
+        public string? Email { get; private set; } = default!;
+        public string? Mobile { get; private set; } = default!;
         public string PasswordHash { get; private set; } = default!;
-       
-        public static SystemUser Create(string username, string email, string mobile, string passwordHash)
+        public UserType UserType { get; set; } = UserType.ADMIN;
+        public SystemUserId? AdminId { get; set; } = default!;
+
+        public static SystemUser Create(string username, string? email, string? mobile, string passwordHash, UserType userType, SystemUserId? adminId)
         {
             //Domain model validation
             Validation(username, email, mobile, passwordHash);           
@@ -22,11 +24,13 @@
                 Email = email,
                 Mobile = mobile,
                 PasswordHash = passwordHash,
+                UserType = userType,
+                AdminId = adminId
             };
 
             return user;
         }
-        public void Update(string username, string email, string mobile, string passwordHash)
+        public void Update(string username, string? email, string? mobile, string passwordHash)
         {
             //Domain model validation
             Validation(username, email, mobile, passwordHash);
@@ -52,25 +56,28 @@
             }
         }
 
-        private static void Validation(string username, string email, string mobile, string passwordHash)
+        private static void Validation(string username, string? email, string? mobile, string passwordHash)
         {
             ArgumentException.ThrowIfNullOrEmpty(username);
             ArgumentException.ThrowIfNullOrWhiteSpace(username);
             ArgumentOutOfRangeException.ThrowIfGreaterThan(username.Length, 150);
             ArgumentOutOfRangeException.ThrowIfLessThan(username.Length, 3);
 
-            ArgumentException.ThrowIfNullOrEmpty(email);
-            ArgumentException.ThrowIfNullOrWhiteSpace(email);
-            ArgumentOutOfRangeException.ThrowIfGreaterThan(email.Length, 150);
-            ArgumentOutOfRangeException.ThrowIfLessThan(username.Length, 6);
+            if(email is not null)
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(email);
+                ArgumentOutOfRangeException.ThrowIfGreaterThan(email.Length, 150);
+                ArgumentOutOfRangeException.ThrowIfLessThan(username.Length, 6);
+            }
 
-            ArgumentException.ThrowIfNullOrEmpty(mobile);
-            ArgumentException.ThrowIfNullOrWhiteSpace(mobile);
-            ArgumentOutOfRangeException.ThrowIfNotEqual(mobile.Length, 11);
+            if (mobile is not null)
+            {
+                ArgumentException.ThrowIfNullOrWhiteSpace(mobile);
+                ArgumentOutOfRangeException.ThrowIfNotEqual(mobile.Length, 11);
+            }
 
             ArgumentException.ThrowIfNullOrEmpty(passwordHash);
             ArgumentException.ThrowIfNullOrWhiteSpace(passwordHash);            
         }
-
     }
 }

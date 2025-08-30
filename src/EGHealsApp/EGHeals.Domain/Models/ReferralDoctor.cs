@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace EGHeals.Domain.Models
+﻿namespace EGHeals.Domain.Models
 {
     public class ReferralDoctor : Entity<ReferralDoctorId>
     {
